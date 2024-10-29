@@ -1,54 +1,24 @@
-name: Android CICD
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+name: Build & upload to Firebase App Distribution
+
+on: [push]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up JDK 17
+      - uses: actions/checkout@v1
+      - name: set up JDK 17
         uses: actions/setup-java@v1
         with:
           java-version: 17
-
-      - name: Set up Node.js 18
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-
-      - name: Install NDK
-        run: echo "y" | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --install "ndk;20.0.5594570"
-
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Build release
+      - name: build release
         run: ./gradlew assembleRelease
-
-      - name: List files
-        run: ls -lrt app/build/outputs/apk/release
-
-      - name: Get last commit message
-        id: commit_msg
-        run: |
-          echo "RELEASE_NOTES=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
-
-      - name: Upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testers
-          file: app/build/outputs/apk/release/app-release.apk
-          releaseNotes: ${{ env.RELEASE_NOTES }}
+          file: app/build/outputs/apk/release/app-release-unsigned.apk
