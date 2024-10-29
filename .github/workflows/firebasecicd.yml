@@ -20,7 +20,9 @@ jobs:
           java-version: 1.8
 
       - name: Install NDK
-        run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root="$ANDROID_SDK_ROOT"
+        uses: android-actions/setup-ndk@v2
+        with:
+          ndk-version: 20.0.5594570
 
       - name: Build with Gradle
         run: ./gradlew build
