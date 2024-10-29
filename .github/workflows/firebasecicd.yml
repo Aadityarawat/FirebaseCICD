@@ -1,9 +1,9 @@
 name: Android CICD
 on: 
   push: 
-    branches: [develop]
+    branches: master
   pull_request:
-    branched: [develop]
+    branched: master
 
 jobs:
   build:
