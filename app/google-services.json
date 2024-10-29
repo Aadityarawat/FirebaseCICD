@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719278311549",
+    "project_id": "fir-cicd-2e20f",
+    "storage_bucket": "fir-cicd-2e20f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719278311549:android:b29e7af9566f29e1f5c914",
+        "android_client_info": {
+          "package_name": "com.adityarawat.cicdfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVi846u_n9GTNOWpy1LmOeaTSp4B_HO5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
